@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}移动干线电路查询智能体{% endblock %}
+
+{% block content %}
+<div class="query-section">
+    <div class="search-box">
+        <input type="text"
+               id="queryInput"
+               placeholder="输入传输系统名，如：北京-上海39系统、W-239、4950..."
+               autofocus />
+        <button id="queryBtn" onclick="doQuery()">查询</button>
+    </div>
+    <p class="search-hint">示例：查一下北京-上海39系统 · 北京-上海W-44 · 查4950 · W-239路由</p>
+</div>
+
+<div id="loading" class="loading-section" style="display:none;">
+    <div class="spinner"></div>
+    <p>智能体正在推理...</p>
+</div>
+
+<div id="errorBox" class="error-section" style="display:none;"></div>
+
+<div id="resultSection" class="result-section" style="display:none;">
+    <!-- 步骤卡片容器 -->
+    <div id="stepsContainer"></div>
+
+    <!-- AI 总结 -->
+    <div id="llmSummary" class="summary-card" style="display:none;">
+        <div class="summary-header">🤖 AI 总结</div>
+        <div class="summary-body" id="summaryBody"></div>
+    </div>
+</div>
+
+<!-- 键盘快捷键：Enter 查询 -->
+<script>
+document.getElementById('queryInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        doQuery();
+    }
+});
+</script>
+
+<script src="/static/ui.js"></script>
+{% endblock %}
